@@ -1,5 +1,5 @@
 # Sentiment Analytics: Front End
-[![Build Status](https://travis-ci.org/krinj/nodejs-app.svg?branch=master)](https://travis-ci.org/krinj/nodejs-app)
+[![Build Status](https://travis-ci.com/lfp-sentiment-analysis/sa-frontend.svg?branch=master)](https://travis-ci.com/lfp-sentiment-analysis/sa-frontend)
 
 ## Overview of the Repository
 
