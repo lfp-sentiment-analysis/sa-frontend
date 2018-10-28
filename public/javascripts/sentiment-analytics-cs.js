@@ -294,11 +294,11 @@
      * set the start date for the range slider back one day
      * (avoids an error with NoUiSlider)
      */
-    if (startDate.getDate() == endDate.getDate() && 
-        startDate.getMonth() == endDate.getMonth() &&
-        startDate.getFullYear() == endDate.getFullYear()) {
+    if (rangeStart.getDate() == rangeEnd.getDate() && 
+        rangeStart.getMonth() == rangeEnd.getMonth() &&
+        rangeStart.getFullYear() == rangeEnd.getFullYear()) {
   
-      rangeStart = new Date(startDate.getTime() - 24 * 60 * 60 * 1000);
+      rangeStart = new Date(rangeStart.getTime() - 24 * 60 * 60 * 1000);
     }
 
     var rangeStart_ms = rangeStart.getTime();
