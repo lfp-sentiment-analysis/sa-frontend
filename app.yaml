@@ -1,4 +1,4 @@
-service: node
+service: default
 runtime: nodejs8
 
 env_variables:
