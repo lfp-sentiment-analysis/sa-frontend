@@ -35,6 +35,20 @@ module.exports.getResponse = function (req, res) {
     birthEnd = currentYear - parseInt(ageRangeArray[0]);
   }
 
+  // Apply correction if start and end dates are equal:
+  if (startDate == endDate) {
+
+    // make start date one day prior
+    var startDateObj = new Date(startDate);
+    startDateObj = new Date(startDateObj.getTime() - 24 * 60 * 60 * 1000);
+    startDate = startDateObj.toISOString().slice(0, 10);
+
+    // make end date one day later
+    var endDateObj = new Date(endDate);
+    endDateObj = new Date(endDateObj.getTime() + 24 * 60 * 60 * 1000);
+    endDate = endDateObj.toISOString().slice(0, 10);
+  }
+
   var query = "SELECT response AS responseDetail, timestamp AS submitDate, overall_sentiment from `learning-for-purpose.analytics.responses` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " ;";
 
   if (orgABNhash == 'all') {

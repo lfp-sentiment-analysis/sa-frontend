@@ -33,6 +33,20 @@ module.exports.loadResults = function (req, res) {
     birthStart = currentYear - parseInt(ageRangeArray[1]);
     birthEnd = currentYear - parseInt(ageRangeArray[0]);
   }
+
+  // Apply correction if start and end dates are equal:
+  if (startDate == endDate) {
+
+    // make start date one day prior
+    var startDateObj = new Date(startDate);
+    startDateObj = new Date(startDateObj.getTime() - 24 * 60 * 60 * 1000);
+    startDate = startDateObj.toISOString().slice(0, 10);
+
+    // make end date one day later
+    var endDateObj = new Date(endDate);
+    endDateObj = new Date(endDateObj.getTime() + 24 * 60 * 60 * 1000);
+    endDate = endDateObj.toISOString().slice(0, 10);
+  }
   
   var query = [];
   
