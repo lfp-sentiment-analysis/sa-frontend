@@ -10,19 +10,19 @@ module.exports.getResults = function (req, res) {
   var queries = [];
 
   // Query 0: First date of responses for the survey
-  queries[0] = "SELECT timestamp As firstDate from `learning-for-purpose.analytics.responses_dev` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' ORDER BY firstDate ASC LIMIT 1;";
+  queries[0] = "SELECT timestamp As firstDate from `learning-for-purpose.analytics.responses` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' ORDER BY firstDate ASC LIMIT 1;";
 
   // Query 1: Last date of responses for the survey
-  queries[1] = "SELECT timestamp AS lastDate FROM `learning-for-purpose.analytics.responses_dev` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' ORDER BY lastDate DESC LIMIT 1;";
+  queries[1] = "SELECT timestamp AS lastDate FROM `learning-for-purpose.analytics.responses` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' ORDER BY lastDate DESC LIMIT 1;";
 
   // Query 2: List of Questions for the Survey
-  queries[2] = "SELECT DISTINCT question_name, question_id FROM `learning-for-purpose.analytics.responses_dev` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "';";
+  queries[2] = "SELECT DISTINCT question_name, question_id FROM `learning-for-purpose.analytics.responses` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "';";
 
   // Query 3: List of employment status options
-  queries[3] = "SELECT DISTINCT employment_status FROM `learning-for-purpose.analytics.responses_dev` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "';"
+  queries[3] = "SELECT DISTINCT employment_status FROM `learning-for-purpose.analytics.responses` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "';"
 
   // Query 4: List of gender options
-  queries[4] = "SELECT DISTINCT gender FROM `learning-for-purpose.analytics.responses_dev` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' ORDER BY gender;"
+  queries[4] = "SELECT DISTINCT gender FROM `learning-for-purpose.analytics.responses` WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' ORDER BY gender;"
     
   for (var i = 0; i < queries.length; i++) {
     if (orgABNhash == 'all') {

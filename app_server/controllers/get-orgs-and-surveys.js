@@ -7,10 +7,10 @@ module.exports.getResults = function (req, res) {
   var queries = [];
 
   // Query 0: List of surveys for the organization
-  queries[0] = "SELECT DISTINCT survey_name, survey_id FROM `learning-for-purpose.analytics.responses_dev`;"
+  queries[0] = "SELECT DISTINCT survey_name, survey_id FROM `learning-for-purpose.analytics.responses`;"
 
   // Query 1: List of organisations in the database, their ABNs & ABN hashes
-  queries[1] = "SELECT DISTINCT organization, abn, abn_hash FROM `learning-for-purpose.analytics.responses_dev`"
+  queries[1] = "SELECT DISTINCT organization, abn, abn_hash FROM `learning-for-purpose.analytics.responses`"
 
   for (var i = 0; i < queries.length; i++) {
     asyncQuery(queries[i], projectid, i);

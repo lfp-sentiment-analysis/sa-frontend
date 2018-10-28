@@ -39,7 +39,7 @@ module.exports.getResults = function (req, res) {
   }  
 
   var query1Start = "SELECT DISTINCT Lower(e.name) as entity, COUNT(*) AS freq, AVG(e.score) AS aveSentiment ";
-  var query1Middle = "FROM `learning-for-purpose.analytics.responses_dev`, UNNEST(entity) AS e WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND employment_status = '" + employStatus + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd;
+  var query1Middle = "FROM `learning-for-purpose.analytics.responses`, UNNEST(entity) AS e WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND employment_status = '" + employStatus + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd;
   var query1End;
   if (displayMode == "focus") {
     query1End = " GROUP BY entity ORDER BY entity";

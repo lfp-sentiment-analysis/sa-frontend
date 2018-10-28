@@ -35,7 +35,7 @@ module.exports.getResponse = function (req, res) {
     birthEnd = currentYear - parseInt(ageRangeArray[0]);
   }
 
-  var query = "SELECT response AS responseDetail, timestamp AS submitDate, overall_sentiment from `learning-for-purpose.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " ;";
+  var query = "SELECT response AS responseDetail, timestamp AS submitDate, overall_sentiment from `learning-for-purpose.analytics.responses` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " ;";
 
   if (orgABNhash == 'all') {
     query = query.replace(/abn_hash = 'all' AND/, '');
