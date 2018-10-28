@@ -148,6 +148,7 @@
       // Reset the handles on the date slider:
       var startDateObj = FirstDate;
       var endDateObj = LastDate;
+
       var slider = document.getElementById('dateSlider');
       slider.noUiSlider.set([startDateObj.getTime(), endDateObj.getTime()]);
       loadResults();
@@ -289,8 +290,16 @@
     var rangeStart = FirstDate;
     var rangeEnd = LastDate;
 
-    document.getElementById('startDateBox').valueAsDate = StartDate;
-    document.getElementById('endDateBox').valueAsDate = EndDate;
+    /* If first and last dates are equal, 
+     * set the start date for the range slider back one day
+     * (avoids an error with NoUiSlider)
+     */
+    if (startDate.getDate() == endDate.getDate() && 
+        startDate.getMonth() == endDate.getMonth() &&
+        startDate.getFullYear() == endDate.getFullYear()) {
+  
+      rangeStart = new Date(startDate.getTime() - 24 * 60 * 60 * 1000);
+    }
 
     var rangeStart_ms = rangeStart.getTime();
     var rangeEnd_ms = rangeEnd.getTime();
@@ -323,7 +332,7 @@
     sliderDOM.noUiSlider.on('change', function (values, handle) {
       dateValues[handle].valueAsDate = new Date(+values[handle]);
       StartDate = new Date(document.getElementById("startDateBox").valueAsDate);
-      EndDate = new Date(document.getElementById("endDateBox").valueAsDate);  
+      EndDate = new Date(document.getElementById("endDateBox").valueAsDate); 
       loadResults();
     });
   }
