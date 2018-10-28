@@ -2,7 +2,7 @@
 // LOAD/UPDATE THE PAGE WITH FILTERS SPECIFIED:
 module.exports.loadResults = function (req, res) {
   
-  const projectid = 'cits-3200';
+  const projectid = 'learning-for-purpose';
   
   // Filter variables, set to values sent to this controller from client:
   var orgABNhash = req.body.orgABNhash; 
@@ -37,19 +37,19 @@ module.exports.loadResults = function (req, res) {
   var query = [];
   
   // Query 0: Find number of responses for set of filters
-  query[0] = "SELECT COUNT(*) as totalResponse FROM `cits-3200.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '"+ orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID +"' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN "+ birthStart + " AND " + birthEnd + "; ";  
+  query[0] = "SELECT COUNT(*) as totalResponse FROM `learning-for-purpose.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '"+ orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID +"' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN "+ birthStart + " AND " + birthEnd + "; ";
 
   // Query 1: Organisation's average overall sentiment score for the question
-  query[1] = "SELECT AVG(overall_sentiment) AS organizationAverage FROM `cits-3200.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " ;";
+  query[1] = "SELECT AVG(overall_sentiment) AS organizationAverage FROM `learning-for-purpose.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " ;";
   
   // Query 2: Get overall sentiment time-series data:
-  query[2] = "SELECT timestamp as ds, AVG(overall_sentiment) as avgOs FROM `cits-3200.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "'  AND gender = '" + gender + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + "  GROUP BY ds ORDER BY ds;";
+  query[2] = "SELECT timestamp as ds, AVG(overall_sentiment) as avgOs FROM `learning-for-purpose.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "'  AND gender = '" + gender + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + "  GROUP BY ds ORDER BY ds;";
 
   // Query 3: Frequency count array of sentiment scores -10 to 10 (for Histogram by Score)
-  query[3] = "SELECT overall_sentiment, COUNT(*) as frequency FROM `cits-3200.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " GROUP BY overall_sentiment ORDER BY overall_sentiment ASC;";
+  query[3] = "SELECT overall_sentiment, COUNT(*) as frequency FROM `learning-for-purpose.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " GROUP BY overall_sentiment ORDER BY overall_sentiment ASC;";
 
   // Query 4: Get list of entities for entity search function
-  query[4] = "SELECT DISTINCT LOWER(e.name) as ent FROM `cits-3200.analytics.responses_dev` R,UNNEST(entity) AS e WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND employment_status = '" + employStatus + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + ";";
+  query[4] = "SELECT DISTINCT LOWER(e.name) as ent FROM `learning-for-purpose.analytics.responses_dev` R,UNNEST(entity) AS e WHERE abn_hash = '" + orgABNhash + "' AND survey_id = '" + surveyID + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND employment_status = '" + employStatus + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + ";";
 
   // Query 6: National average overall sentiment score for the question
   // query[1] = "SELECT AVG(overall_sentiment) AS nationalAverage FROM `cits-3200.analytics.responses_dev` WHERE employment_status = '" + employStatus + "' AND timestamp BETWEEN '" + startDate + "' AND '" + endDate + "' AND question_id = '" + questionID + "' AND gender = '" + gender + "' AND year_of_birth BETWEEN " + birthStart + " AND " + birthEnd + " ;";

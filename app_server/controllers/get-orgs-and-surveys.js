@@ -2,15 +2,15 @@
 // LOAD/UPDATE THE PAGE WITH FILTERS SPECIFIED:
 module.exports.getResults = function (req, res) {
 
-  const projectid = 'cits-3200';  
+  const projectid = 'learning-for-purpose';
 
   var queries = [];
 
   // Query 0: List of surveys for the organization
-  queries[0] = "SELECT DISTINCT survey_name, survey_id FROM `cits-3200.analytics.responses_dev`;"
+  queries[0] = "SELECT DISTINCT survey_name, survey_id FROM `learning-for-purpose.analytics.responses_dev`;"
 
   // Query 1: List of organisations in the database, their ABNs & ABN hashes
-  queries[1] = "SELECT DISTINCT organization, abn, abn_hash FROM `cits-3200.analytics.responses_dev`"
+  queries[1] = "SELECT DISTINCT organization, abn, abn_hash FROM `learning-for-purpose.analytics.responses_dev`"
 
   for (var i = 0; i < queries.length; i++) {
     asyncQuery(queries[i], projectid, i);
